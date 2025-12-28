@@ -1,15 +1,14 @@
-def write_data(df, output_path, format="delta"):
+def write_data(df, output_path, format="parquet", partition_by=None):
     """
     Write transformed data to an output location.
 
     Args:
-        df (DataFrame): Data to save.
-        output_path (str): Destination path for the data.
-        format (str): Output format ('csv', 'json', 'delta', etc.).
+        df (DataFrame): Transformed Spark DataFrame.
+        output_path (str): Destination for the output data.
+        format (str): Output file format ('csv', 'json', 'parquet').
+        partition_by (list): Columns to partition the data by.
     """
-    if format in ["delta", "parquet"]:
-        df.write.mode("overwrite").format(format).save(output_path)
-    elif format == "csv":
-        df.write.options(header=True).csv(output_path)
-    else:
-        raise ValueError("Unsupported write format provided.")
+    writer = df.write.mode("overwrite").format(format)
+    if partition_by:
+        writer = writer.partitionBy(*partition_by)
+    writer.save(output_path)
