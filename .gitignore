@@ -45,12 +45,16 @@ spark-warehouse/
 
 # Data files (exclude large data files)
 *.parquet
-*.csv
-*.json
 data/output/
 data/input/*.csv
 data/input/*.json
 data/input/*.parquet
+# But allow sample data
+!data/input/sample_data.csv
+# Exclude CSV/JSON except in root and examples
+*.csv
+*.json
+!sample_data.csv
 
 # Logs
 *.log
