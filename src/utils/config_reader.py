@@ -14,7 +14,7 @@ class ConfigReader:
             with open(self.config_path, 'r') as file:
                 return yaml.safe_load(file)
         except FileNotFoundError:
-            raise FileNotFoundError(f"Configuration file not found:  {self.config_path}")
+            raise FileNotFoundError(f"Configuration file not found: {self.config_path}")
         except yaml.YAMLError as e:
             raise ValueError(f"Error parsing YAML configuration: {e}")
     
