@@ -7,6 +7,7 @@ A production-ready, end-to-end data pipeline built with Databricks, PySpark, and
 - [Architecture](#architecture)
 - [Features](#features)
 - [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
 - [Setup](#setup)
 - [Usage](#usage)
 - [Configuration](#configuration)
@@ -75,6 +76,20 @@ databricks-data-pipeline/
 ├── run_pipeline.py         # Main pipeline orchestrator
 ├── requirements.txt        # Python dependencies
 └── README.md              # This file
+```
+
+## 🚀 Quick Start
+
+**New to this project?** Check out the [Quick Start Guide](docs/QUICKSTART.md) for a step-by-step tutorial!
+
+```bash
+# Clone and setup
+git clone https://github.com/wibnudixon/databricks-data-pipeline.git
+cd databricks-data-pipeline
+pip install -r requirements.txt
+
+# Run the pipeline
+python run_pipeline.py
 ```
 
 ## 🚀 Setup
