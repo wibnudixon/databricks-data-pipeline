@@ -1,0 +1,35 @@
+---
+# Data Quality Validation Rules
+rules:
+  employee_data:
+    - column: "id"
+      checks:
+        - type: "not_null"
+        - type: "unique"
+    
+    - column: "employee_name"
+      checks:
+        - type: "not_null"
+    
+    - column: "department"
+      checks:
+        - type: "allowed_values"
+          values: ["Engineering", "Sales", "Marketing", "HR", "Finance", "Operations"]
+    
+    - column: "salary"
+      checks:
+        - type: "not_null"
+        - type: "range"
+          min: 30000
+          max: 500000
+    
+    - column: "satisfaction_level"
+      checks:
+        - type: "range"
+          min: 0.0
+          max: 1.0
+    
+    - column: "email"
+      checks:
+        - type: "format"
+          pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
