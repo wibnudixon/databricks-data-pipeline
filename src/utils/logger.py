@@ -14,7 +14,7 @@ class PipelineLogger:
         console_handler.setLevel(log_level)
         
         # Formatter
-        formatter = logging. Formatter(
+        formatter = logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             datefmt='%Y-%m-%d %H:%M:%S'
         )

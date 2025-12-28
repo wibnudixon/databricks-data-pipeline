@@ -7,23 +7,23 @@ class SparkSessionManager:
     @staticmethod
     def get_spark_session(app_name="DataPipeline", configs=None):
         """Create or get existing Spark session with optimizations."""
-        builder = SparkSession.builder. appName(app_name)
+        builder = SparkSession.builder.appName(app_name)
         
         # Default optimized configurations
         default_configs = {
             "spark.sql.adaptive.enabled": "true",
-            "spark.sql. adaptive.coalescePartitions. enabled": "true",
-            "spark.sql.shuffle.partitions":  "200",
-            "spark. databricks.delta.optimizeWrite.enabled": "true",
-            "spark.databricks. delta.autoCompact.enabled": "true"
+            "spark.sql.adaptive.coalescePartitions.enabled": "true",
+            "spark.sql.shuffle.partitions": "200",
+            "spark.databricks.delta.optimizeWrite.enabled": "true",
+            "spark.databricks.delta.autoCompact.enabled": "true"
         }
         
         # Merge with custom configs
         if configs:
-            default_configs. update(configs)
+            default_configs.update(configs)
         
-        for key, value in default_configs. items():
-            builder = builder. config(key, value)
+        for key, value in default_configs.items():
+            builder = builder.config(key, value)
         
         return builder.getOrCreate()
 

@@ -1,0 +1,13 @@
+# Core dependencies
+pyspark>=3.4.0
+delta-spark>=2.4.0
+
+# Configuration and data validation
+pyyaml>=6.0
+
+# Development dependencies
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Additional utilities
+python-dateutil>=2.8.2

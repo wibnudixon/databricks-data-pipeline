@@ -1,0 +1,44 @@
+# Pipeline Configuration
+
+# Data source paths
+paths:
+  bronze: "dbfs:/mnt/bronze"
+  silver: "dbfs:/mnt/silver"
+  gold: "dbfs:/mnt/gold"
+  checkpoint: "dbfs:/mnt/checkpoints"
+
+# Data sources configuration
+sources:
+  employee_data:
+    path: "data/employee_data.csv"
+    format: "csv"
+    schema: "employee"
+    header: true
+  
+  attendance_data:
+    path: "data/attendance_data.csv"
+    format: "csv"
+    schema: "attendance"
+    header: true
+
+# Output configuration
+output:
+  format: "delta"
+  mode: "overwrite"
+  partition_columns:
+    - "department"
+    - "hire_year"
+
+# Spark configuration
+spark:
+  app_name: "DatabricksDataPipeline"
+  shuffle_partitions: 200
+  adaptive_enabled: true
+  optimize_write: true
+  auto_compact: true
+
+# Processing configuration
+processing:
+  batch_size: 10000
+  max_retries: 3
+  timeout_seconds: 3600

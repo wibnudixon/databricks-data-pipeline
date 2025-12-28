@@ -1,0 +1,51 @@
+# Data Quality Validation Rules
+
+rules:
+  employee_data:
+    - column: "id"
+      checks:
+        - type: "not_null"
+        - type: "unique"
+    
+    - column: "employee_name"
+      checks:
+        - type: "not_null"
+    
+    - column: "department"
+      checks:
+        - type: "allowed_values"
+          values: ["Engineering", "Sales", "Marketing", "HR", "Finance", "Operations"]
+    
+    - column: "salary"
+      checks:
+        - type: "not_null"
+        - type: "range"
+          min: 30000
+          max: 500000
+    
+    - column: "age"
+      checks:
+        - type: "range"
+          min: 18
+          max: 80
+    
+    - column: "satisfaction_level"
+      checks:
+        - type: "range"
+          min: 0.0
+          max: 1.0
+
+  attendance_data:
+    - column: "employee_id"
+      checks:
+        - type: "not_null"
+    
+    - column: "date"
+      checks:
+        - type: "not_null"
+    
+    - column: "hours_worked"
+      checks:
+        - type: "range"
+          min: 0
+          max: 24

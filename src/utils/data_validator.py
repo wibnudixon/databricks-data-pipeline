@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame
-from pyspark.sql. functions import col, count, when, isnan, isnull, regexp_extract
+from pyspark.sql.functions import col, count, when, isnan, isnull, regexp_extract
 import yaml
 from pathlib import Path
 
@@ -15,13 +15,13 @@ class DataQualityValidator:
         with open(rules_path, 'r') as file:
             return yaml.safe_load(file)
     
-    def validate_not_null(self, df:  DataFrame, column:  str) -> dict:
+    def validate_not_null(self, df: DataFrame, column: str) -> dict:
         """Check for null values in a column."""
         total_count = df.count()
         null_count = df.filter(col(column).isNull()).count()
         
         return {
-            "check":  "not_null",
+            "check": "not_null",
             "column": column,
             "passed": null_count == 0,
             "null_count": null_count,
@@ -34,8 +34,8 @@ class DataQualityValidator:
         distinct_count = df.select(column).distinct().count()
         
         return {
-            "check":  "unique",
-            "column":  column,
+            "check": "unique",
+            "column": column,
             "passed": total_count == distinct_count,
             "duplicate_count": total_count - distinct_count
         }
@@ -51,7 +51,7 @@ class DataQualityValidator:
             "column": column,
             "passed": out_of_range == 0,
             "out_of_range_count": out_of_range,
-            "range":  f"{min_val} - {max_val}"
+            "range": f"{min_val} - {max_val}"
         }
     
     def validate_format(self, df: DataFrame, column: str, pattern: str) -> dict:
@@ -86,7 +86,7 @@ class DataQualityValidator:
         """Run all validation rules for a dataset."""
         results = []
         
-        if dataset_name not in self.rules. get('rules', {}):
+        if dataset_name not in self.rules.get('rules', {}):
             return results
         
         for rule in self.rules['rules'][dataset_name]:
@@ -97,7 +97,7 @@ class DataQualityValidator:
                 
                 if check_type == 'not_null':
                     result = self.validate_not_null(df, column)
-                elif check_type == 'unique': 
+                elif check_type == 'unique':
                     result = self.validate_unique(df, column)
                 elif check_type == 'range':
                     result = self.validate_range(df, column, check['min'], check['max'])
@@ -120,7 +120,7 @@ class DataQualityValidator:
         return {
             "total_checks": total_checks,
             "passed_checks": passed_checks,
-            "failed_checks":  total_checks - passed_checks,
+            "failed_checks": total_checks - passed_checks,
             "success_rate": (passed_checks / total_checks * 100) if total_checks > 0 else 0,
             "details": results
         }
